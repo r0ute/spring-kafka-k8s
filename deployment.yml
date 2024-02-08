@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: spring-kafka-k8s
+  name: spring-kafka-k8s
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: spring-kafka-k8s
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: spring-kafka-k8s
+    spec:
+      containers:
+      - image: spring-kafka-k8s:0.0.1-SNAPSHOT
+        name: spring-kafka-k8s
+        imagePullPolicy: IfNotPresent
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: spring-kafka-k8s
+  name: spring-kafka-k8s
+spec:
+  ports:
+  - name: 8080-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: spring-kafka-k8s
+  type: LoadBalancer
+status:
+  loadBalancer: {}
